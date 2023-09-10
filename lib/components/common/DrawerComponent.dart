@@ -1,3 +1,4 @@
+// ignore: file_names
 import 'package:cwc_store/components/common/TextCommonComponent.dart';
 import 'package:flutter/material.dart';
 
@@ -9,10 +10,11 @@ class DrawerCommon extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: const <Widget>[
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.red),
-            child: TextCommon('Header menu'),
-          )
+          SizedBox(
+            height: 50,
+            child: DrawerHeader(child: TextCommon('Header menu')),
+          ),
+          TextCommon('test data')
         ],
       ),
     );
