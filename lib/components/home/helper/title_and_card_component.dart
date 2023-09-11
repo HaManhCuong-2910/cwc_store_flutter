@@ -26,7 +26,7 @@ class _TitleAndCardComponent extends State<TitleAndCardComponent> {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(children: [
-              for (int x = 1; x <= 10; x++) ...[const CardComponent()],
+              for (int x = 1; x <= 3; x++) const CardComponent(),
             ]),
           ),
         )

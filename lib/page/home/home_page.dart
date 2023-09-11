@@ -1,4 +1,4 @@
-import 'package:cwc_store/components/common/bottom_sheet_component.dart';
+// import 'package:cwc_store/components/common/bottom_sheet_component.dart';
 import 'package:cwc_store/components/home/data/index.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class _HomePage extends State<HomePage> {
     return SafeArea(
         child: Scaffold(
       body: DataHome.widgetOptionsHome.elementAt(_selectedIndex),
-      bottomSheet: const BottomSheetComponent(),
+      // bottomSheet: const BottomSheetComponent(),
       bottomNavigationBar: Theme(
           data: ThemeData(
             highlightColor: Colors.transparent,

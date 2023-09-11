@@ -38,6 +38,7 @@ dependencies:
 
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^2.3.10
+  audioplayers: ^5.1.0
 
 dev_dependencies:
   flutter_test:

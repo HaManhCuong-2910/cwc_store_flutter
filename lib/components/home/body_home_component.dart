@@ -13,16 +13,16 @@ class BodyHomeComponent extends StatefulWidget {
 }
 
 class _BodyHomeComponentState extends State<BodyHomeComponent> {
-  ScrollController scrollController = ScrollController();
+  // ScrollController scrollController = ScrollController();
 
-  @override
-  void initState() {
-    scrollController.addListener(() {
-      //listener
-      print(scrollController.offset);
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   scrollController.addListener(() {
+  //     //listener
+  //     print(scrollController.offset);
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,6 @@ class _BodyHomeComponentState extends State<BodyHomeComponent> {
         body: ListView(
           padding: const EdgeInsets.fromLTRB(20, 0, 0, 16),
           shrinkWrap: true,
-          controller: scrollController,
           children: [
             Container(
               padding: const EdgeInsets.only(top: 16),
