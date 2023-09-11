@@ -1,17 +1,11 @@
-// ignore: file_names
-import 'package:cwc_store/components/common/TextCommonComponent.dart';
-import 'package:cwc_store/components/home/helper/StackImageComponent.dart';
+import 'package:cwc_store/components/common/text_common_component.dart';
+import 'package:cwc_store/components/home/helper/stack_image_component.dart';
 import 'package:cwc_store/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
-class CardComponent extends StatefulWidget {
+class CardComponent extends StatelessWidget {
   const CardComponent({super.key});
 
-  @override
-  State<CardComponent> createState() => _CardComponent();
-}
-
-class _CardComponent extends State<CardComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +20,10 @@ class _CardComponent extends State<CardComponent> {
           SizedBox(height: 4.0),
           TextCommon(
             'mo ta',
-            style: TextStyle(color: ColorsCommon.colorBlack400),
+            style: TextStyle(
+                color: ColorsCommon.colorBlack400,
+                fontSize: 14,
+                fontWeight: FontWeight.w400),
           )
         ],
       ),

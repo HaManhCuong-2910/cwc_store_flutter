@@ -17,11 +17,6 @@ class ProductPage extends StatelessWidget {
                   Navigator.pushNamed(context, '/list-product');
                 },
                 child: const Text('redirect to list')),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('back page'))
           ],
         ),
       ),

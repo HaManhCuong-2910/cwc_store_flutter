@@ -1,6 +1,5 @@
-// ignore: file_names
-import 'package:cwc_store/components/common/TextCommonComponent.dart';
-import 'package:cwc_store/components/home/helper/CardComponent.dart';
+import 'package:cwc_store/components/common/text_common_component.dart';
+import 'package:cwc_store/components/home/helper/card_component.dart';
 import 'package:flutter/material.dart';
 
 class TitleAndCardComponent extends StatefulWidget {

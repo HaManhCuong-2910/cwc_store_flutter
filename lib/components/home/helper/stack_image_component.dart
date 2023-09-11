@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 
 class StackImageComponent extends StatelessWidget {
   const StackImageComponent(
-      {super.key, this.imageLink = '', this.color = 0xFFFFFFFF});
+      {super.key,
+      this.imageLink = '',
+      this.color = 0xFFFFFFFF,
+      this.width = 145,
+      this.height = 125});
 
   final String imageLink;
   final int color;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const SizedBox(
-          width: 145,
-          height: 125,
+        SizedBox(
+          width: width,
+          height: height,
         ),
         Positioned(
             top: 10,
@@ -22,8 +28,8 @@ class StackImageComponent extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6.0),
                   color: Color(color).withOpacity(0.5)),
-              width: 130,
-              height: 110,
+              width: width - 15,
+              height: height - 15,
             )),
         Positioned(
             top: 5,
@@ -32,16 +38,16 @@ class StackImageComponent extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(6.0),
                   color: Color(color)),
-              width: 130,
-              height: 110,
+              width: width - 15,
+              height: height - 15,
             )),
         Positioned(
             top: 0,
             left: 0,
             child: Container(
               alignment: Alignment.centerLeft,
-              width: 130,
-              height: 110,
+              width: width - 15,
+              height: height - 15,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
                 child: Image(
