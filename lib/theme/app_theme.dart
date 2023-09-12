@@ -10,4 +10,5 @@ class ColorsCommon {
 
 class ImagesCommon {
   static const anhTest = 'assets/images/anh_nhac_test.png';
+  static const anhTestNhac = 'assets/images/image_nhac.webp';
 }

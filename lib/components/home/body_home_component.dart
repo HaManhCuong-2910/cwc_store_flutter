@@ -1,18 +1,20 @@
 import 'package:cwc_store/components/common/text_common_component.dart';
 import 'package:cwc_store/components/home/only-card/only_card_component.dart';
+import 'package:cwc_store/provider/home/home_provider.dart';
 import 'package:cwc_store/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'helper/title_and_card_component.dart';
 
-class BodyHomeComponent extends StatefulWidget {
+class BodyHomeComponent extends ConsumerStatefulWidget {
   const BodyHomeComponent({super.key});
 
   @override
-  State<BodyHomeComponent> createState() => _BodyHomeComponentState();
+  BodyHomeComponentState createState() => BodyHomeComponentState();
 }
 
-class _BodyHomeComponentState extends State<BodyHomeComponent> {
+class BodyHomeComponentState extends ConsumerState<BodyHomeComponent> {
   // ScrollController scrollController = ScrollController();
 
   // @override
@@ -25,7 +27,16 @@ class _BodyHomeComponentState extends State<BodyHomeComponent> {
   // }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    ref.read(soundStateProvider);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    // final SoundStateNotifier state = ref.watch(soundStateProvider);
     return Scaffold(
         appBar: AppBar(
           title: SizedBox(

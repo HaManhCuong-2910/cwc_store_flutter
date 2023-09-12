@@ -1,4 +1,5 @@
 import 'package:cwc_store/components/common/text_common_component.dart';
+import 'package:cwc_store/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class HeaderPlayComponent extends StatelessWidget {
@@ -9,7 +10,12 @@ class HeaderPlayComponent extends StatelessWidget {
     return const Row(
       children: [
         Column(
-          children: [TextCommon('Tiêu đề bài viết')],
+          children: [
+            TextCommon(
+              'Tiêu đề bài viết',
+              style: TextStyleConstant.textWhite,
+            )
+          ],
         )
       ],
     );

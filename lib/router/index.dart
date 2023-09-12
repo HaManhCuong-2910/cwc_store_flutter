@@ -1,4 +1,5 @@
 import 'package:cwc_store/page/home/home_page.dart';
+import 'package:cwc_store/page/play-music/play_music_page.dart';
 import 'package:cwc_store/page/product/list_product_page.dart';
 import 'package:cwc_store/page/product/product_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +19,7 @@ RouteFactory router = (RouteSettings settings) {
           builder: (_) => const ListProductPage(), settings: settings);
     case '/play-music':
       return CupertinoPageRoute(
-          builder: (_) => const ListProductPage(), settings: settings);
+          builder: (_) => const PlayMusicPage(), settings: settings);
     default:
       return CupertinoPageRoute(
           builder: (_) => const ProviderScope(child: HomePage()),
