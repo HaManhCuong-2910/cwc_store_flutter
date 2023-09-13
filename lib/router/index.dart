@@ -19,7 +19,10 @@ RouteFactory router = (RouteSettings settings) {
           builder: (_) => const ListProductPage(), settings: settings);
     case '/play-music':
       return CupertinoPageRoute(
-          builder: (_) => const PlayMusicPage(), settings: settings);
+          builder: (_) => const ProviderScope(
+                child: PlayMusicPage(),
+              ),
+          settings: settings);
     default:
       return CupertinoPageRoute(
           builder: (_) => const ProviderScope(child: HomePage()),

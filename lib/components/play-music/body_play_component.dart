@@ -8,7 +8,14 @@ class BodyPlayMusic extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Positioned(top: 0, child: HeaderPlayComponent()),
+        Positioned(
+            top: 0,
+            left: 0,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              width: MediaQuery.of(context).size.width,
+              child: const HeaderPlayComponent(),
+            )),
       ],
     );
   }
