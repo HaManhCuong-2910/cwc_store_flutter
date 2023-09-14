@@ -1,8 +1,11 @@
 import 'package:cwc_store/components/common/text_common_component.dart';
 import 'package:cwc_store/components/home/helper/stack_image_component.dart';
 import 'package:cwc_store/constant/index.dart';
+import 'package:cwc_store/page/play-music/play_music_page.dart';
+import 'package:cwc_store/router/animation/down_transition.dart';
 import 'package:cwc_store/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class CardComponent extends StatelessWidget {
   const CardComponent({super.key});
@@ -11,7 +14,10 @@ class CardComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        redirectLink(context, '/play-music');
+        redirectScreen(
+            context,
+            DownTransitionRoute(
+                page: const ProviderScope(child: PlayMusicPage())));
       },
       child: Container(
         margin: const EdgeInsets.only(right: 14),

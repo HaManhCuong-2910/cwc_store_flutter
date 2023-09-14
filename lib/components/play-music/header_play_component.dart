@@ -36,11 +36,16 @@ class HeaderPlayComponent extends StatelessWidget {
             shape: BoxShape.circle,
             color: Colors.black,
           ),
-          child: const Icon(
-            Icons.keyboard_arrow_down_outlined,
-            size: 35.0,
-            weight: 10,
-            color: ColorsCommon.colorWhite,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(
+              Icons.keyboard_arrow_down_outlined,
+              size: 35.0,
+              weight: 10,
+              color: ColorsCommon.colorWhite,
+            ),
           ),
         )
       ],

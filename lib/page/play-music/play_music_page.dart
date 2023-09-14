@@ -1,12 +1,10 @@
-import 'package:cwc_store/components/common/text_common_component.dart';
 import 'package:cwc_store/components/play-music/body_play_component.dart';
-import 'package:cwc_store/config/icons.dart';
-import 'package:cwc_store/provider/play-music/play_music_provider.dart';
+import 'package:cwc_store/components/play-music/bottom/action_comment_component.dart';
+import 'package:cwc_store/components/play-music/bottom/action_like_component.dart';
+import 'package:cwc_store/models/play-music/state_song.dart';
 import 'package:cwc_store/theme/app_theme.dart';
-import 'package:cwc_store/theme/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:collection/collection.dart';
 
 class PlayMusicPage extends ConsumerStatefulWidget {
   const PlayMusicPage({super.key});
@@ -15,50 +13,11 @@ class PlayMusicPage extends ConsumerStatefulWidget {
   ConsumerState<PlayMusicPage> createState() => _PlayMusicPageState();
 }
 
-class _PlayMusicPageState extends ConsumerState<PlayMusicPage>
-    with TickerProviderStateMixin {
-  static const int numLike = 1560;
-  static const String currentId = 'test123';
-  bool _isExistInLibrary = false;
-  late AnimationController _heartAnimationController;
-  late Animation _heartAnimation;
-
-  void onSetHeart(List<PlayMusicState> data) {
-    setState(() {
-      _isExistInLibrary =
-          data.firstWhereOrNull((element) => element.id == currentId) != null;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _heartAnimationController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 1000));
-    _heartAnimation = Tween(begin: 15.0, end: 17.0).animate(CurvedAnimation(
-        curve: Curves.bounceOut, parent: _heartAnimationController));
-
-    _heartAnimationController.addStatusListener((AnimationStatus status) {
-      if (status == AnimationStatus.completed) {
-        _heartAnimationController.reset();
-      }
-    });
-  }
+class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
+  final InfoSong _data = InfoSong();
 
   @override
   Widget build(BuildContext context) {
-    final PlayMusicStateNotifier dataState = ref.watch(playMusicStateProvider);
-
-    void onAddLibrary() {
-      dataState.onToggleAddRemove(currentId);
-      _heartAnimationController.forward();
-    }
-
-    ref.listen(playMusicStateProvider, (previous, next) {
-      onSetHeart(next.data);
-    });
-
     return SafeArea(
         child: Scaffold(
             backgroundColor: Colors.black,
@@ -79,35 +38,11 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage>
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      GestureDetector(
-                        onTap: onAddLibrary,
-                        child: Row(
-                          children: [
-                            AnimatedBuilder(
-                                animation: _heartAnimationController,
-                                builder: (context, child) {
-                                  return Icon(
-                                    _isExistInLibrary
-                                        ? IconCustom.heart
-                                        : IconCustom.heart_empty,
-                                    size: _heartAnimation.value,
-                                    color: _isExistInLibrary
-                                        ? Colors.redAccent
-                                        : Colors.white,
-                                  );
-                                }),
-                            const SizedBox(width: 8),
-                            TextCommon(
-                              (_isExistInLibrary ? numLike + 1 : numLike)
-                                  .toString(),
-                              style: TextStyleConstant.textWhite
-                                  .merge(TextStyleConstant.small),
-                            )
-                          ],
-                        ),
-                      )
+                      ActionLikeComponent(
+                          numLike: _data.numLike, currentId: _data.currentId),
+                      ActionCommentComponent(numComment: _data.numComment)
                     ],
                   )),
             )));
