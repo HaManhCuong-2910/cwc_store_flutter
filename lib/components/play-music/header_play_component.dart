@@ -5,7 +5,11 @@ import 'package:cwc_store/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class HeaderPlayComponent extends StatelessWidget {
-  const HeaderPlayComponent({super.key});
+  const HeaderPlayComponent(
+      {super.key, required this.title, required this.author});
+
+  final String title;
+  final String author;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +24,9 @@ class HeaderPlayComponent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const TextPaddingBlack(title: 'Tiêu đề bài hát daa dsadd asdasd'),
+              TextPaddingBlack(title: title),
               TextPaddingBlack(
-                title: 'tác giả',
+                title: author,
                 style: TextStyleConstant.textWhite200
                     .merge(TextStyleConstant.small),
               ),

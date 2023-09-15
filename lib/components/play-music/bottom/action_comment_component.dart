@@ -5,15 +5,22 @@ import 'package:cwc_store/theme/text_style.dart';
 import 'package:flutter/material.dart';
 
 class ActionCommentComponent extends StatelessWidget {
-  const ActionCommentComponent({super.key, required this.numComment});
+  const ActionCommentComponent(
+      {super.key,
+      required this.numComment,
+      required this.nameSong,
+      required this.author});
 
   final int numComment;
+  final String nameSong;
+  final String author;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onShowBottomSheetCustom(context, const BottomSheetComment());
+        onShowBottomSheetCustom(
+            context, BottomSheetComment(title: nameSong, author: author));
       },
       child: Row(
         children: [

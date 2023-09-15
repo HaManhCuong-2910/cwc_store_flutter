@@ -3,11 +3,12 @@ import 'package:cwc_store/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class TextCommon extends StatelessWidget {
-  const TextCommon(this.data, {super.key, this.style});
+  const TextCommon(this.data, {super.key, this.style, this.overflow});
 
   final String data;
 
   final TextStyle? style;
+  final TextOverflow? overflow;
 
   static TextStyle commonStyle = const TextStyle(
       fontSize: 16.0,
@@ -19,6 +20,7 @@ class TextCommon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       data,
+      overflow: overflow,
       style: commonStyle.merge(style),
     );
   }

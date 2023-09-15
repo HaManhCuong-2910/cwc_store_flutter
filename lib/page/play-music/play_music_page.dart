@@ -27,7 +27,7 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
                   image: const DecorationImage(
                       image: AssetImage(ImagesCommon.anhTest),
                       fit: BoxFit.cover)),
-              child: const BodyPlayMusic(),
+              child: BodyPlayMusic(data: _data),
             ),
             bottomNavigationBar: Theme(
               data: ThemeData(
@@ -42,7 +42,10 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
                     children: [
                       ActionLikeComponent(
                           numLike: _data.numLike, currentId: _data.currentId),
-                      ActionCommentComponent(numComment: _data.numComment)
+                      ActionCommentComponent(
+                          numComment: _data.numComment,
+                          nameSong: _data.nameSong,
+                          author: _data.author)
                     ],
                   )),
             )));
