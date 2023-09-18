@@ -12,3 +12,7 @@ class ImagesCommon {
   static const anhTest = 'assets/images/anh_nhac_test.png';
   static const anhTestNhac = 'assets/images/image_nhac.webp';
 }
+
+class AudioCommon {
+  static const canLam = 'audio/Can-Lam-Tra-My-Idol-Hoang-Rapper.mp3';
+}

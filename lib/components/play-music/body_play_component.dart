@@ -1,3 +1,4 @@
+import 'package:cwc_store/components/play-music/body/body_music_component.dart';
 import 'package:cwc_store/components/play-music/header_play_component.dart';
 import 'package:cwc_store/models/play-music/state_song.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ class BodyPlayMusic extends StatelessWidget {
               child: HeaderPlayComponent(
                   title: data.nameSong, author: data.author),
             )),
+        const Center(
+          child: BodyMusicComponent(),
+        )
       ],
     );
   }
