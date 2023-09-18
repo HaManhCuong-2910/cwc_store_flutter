@@ -26,13 +26,13 @@ class ActionCommentComponent extends StatelessWidget {
         children: [
           const Icon(
             Icons.insert_comment_outlined,
-            size: 16,
+            size: 18,
             color: Colors.white,
           ),
           const SizedBox(width: 6),
           TextCommon(
             numComment.toString(),
-            style: TextStyleConstant.textWhite.merge(TextStyleConstant.small),
+            style: TextStyleConstant.textWhite,
           )
         ],
       ),
