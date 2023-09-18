@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cwc_store/provider/play-music/sound_data_provider.dart';
 import 'package:cwc_store/theme/app_theme.dart';
@@ -18,6 +21,9 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
   bool isplaying = false;
   bool audioplayed = false;
   AudioPlayer player = AudioPlayer();
+
+  PlayerController controller = PlayerController();
+  late Directory appDirectory;
 
   @override
   void initState() {
@@ -54,6 +60,13 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
         });
       });
 
+      await controller.preparePlayer(
+        path: AudioCommon.canLam,
+        shouldExtractWaveform: true,
+        noOfSamples: 100,
+        volume: 1.0,
+      );
+
       //================
     });
     super.initState();
@@ -71,6 +84,20 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
+          child: AudioFileWaveforms(
+            size: Size(MediaQuery.of(context).size.width, 100.0),
+            playerController: controller,
+            enableSeekGesture: true,
+            waveformType: WaveformType.long,
+            waveformData: [],
+            playerWaveStyle: const PlayerWaveStyle(
+              fixedWaveColor: Colors.white54,
+              liveWaveColor: Colors.blueAccent,
+              spacing: 6,
+            ),
+          ),
+        ),
+        Container(
           child: Text(
             currentpostlabel,
             style: TextStyle(fontSize: 25),
@@ -86,6 +113,7 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
           onChanged: (double value) async {
             int seekval = value.round();
             await player.seek(Duration(milliseconds: seekval));
+            await controller.seekTo(seekval);
           },
         )),
         Container(
@@ -95,6 +123,7 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
               ElevatedButton.icon(
                   onPressed: () async {
                     await player.play(AssetSource(AudioCommon.canLam));
+                    await controller.startPlayer(finishMode: FinishMode.stop);
                   },
                   icon: const Icon(Icons.play_arrow),
                   label: const Text("Play")),
