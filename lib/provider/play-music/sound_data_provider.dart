@@ -18,7 +18,7 @@ class SoundStateNotifier extends ChangeNotifier {
   calculatePercentPlaySound(double currentPercent) {
     switch (currentPercent) {
       case 0:
-        data.percentConvert = 0;
+        data.percentConvert = -1.0;
         break;
       case < 50:
         data.percentConvert = convertNumber(currentPercent);
@@ -26,7 +26,7 @@ class SoundStateNotifier extends ChangeNotifier {
         data.percentConvert = convertNumber(currentPercent);
         break;
       default:
-        data.percentConvert = 0;
+        data.percentConvert = -1.0;
         break;
     }
     notifyListeners();

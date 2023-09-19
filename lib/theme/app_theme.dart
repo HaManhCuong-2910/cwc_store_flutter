@@ -6,6 +6,7 @@ class ColorsCommon {
   static const Color colorWhite200 = Color(0xffdcdde1);
   static const Color colorBlack500 = Color(0xff2d3436);
   static const Color colorBlack400 = Color(0xff485460);
+  static const Color colorOrange = Color(0xffF79F1F);
 }
 
 class ImagesCommon {

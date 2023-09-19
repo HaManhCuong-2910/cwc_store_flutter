@@ -16,7 +16,7 @@ class PlayMusicPage extends ConsumerStatefulWidget {
 
 class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
   final InfoSong _data = InfoSong();
-  double positionImage = 0.0;
+  double positionImage = -1.0;
 
   @override
   Widget build(BuildContext context) {

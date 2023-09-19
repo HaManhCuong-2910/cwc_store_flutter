@@ -1,11 +1,15 @@
 import 'dart:io';
-
 import 'package:audio_waveforms/audio_waveforms.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cwc_store/components/home/helper/text_padding_black.dart';
+import 'package:cwc_store/constant/index.dart';
 import 'package:cwc_store/provider/play-music/sound_data_provider.dart';
 import 'package:cwc_store/theme/app_theme.dart';
+import 'package:cwc_store/theme/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 
 class BodyMusicComponent extends ConsumerStatefulWidget {
   const BodyMusicComponent({super.key});
@@ -14,59 +18,59 @@ class BodyMusicComponent extends ConsumerStatefulWidget {
   ConsumerState<BodyMusicComponent> createState() => _BodyMusicComponentState();
 }
 
+String convertNumberToDurationLabel(int duration) {
+  int shours = Duration(milliseconds: duration).inHours;
+  int sminutes = Duration(milliseconds: duration).inMinutes;
+  int sseconds = Duration(milliseconds: duration).inSeconds;
+
+  int rhours = shours;
+  int rminutes = sminutes - (shours * 60);
+  int rseconds = sseconds - (sminutes * 60 + shours * 60 * 60);
+
+  return "${rhours > 0 ? '${formatTwoNumber(rhours)}:' : ''}${formatTwoNumber(rminutes)}:${formatTwoNumber(rseconds)}";
+}
+
 class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
   int maxDuration = 100;
   int currentpos = 0;
   String currentpostlabel = "00:00";
-  bool isplaying = false;
-  bool audioplayed = false;
   AudioPlayer player = AudioPlayer();
 
   PlayerController controller = PlayerController();
+
+  String path = '';
   late Directory appDirectory;
 
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
       final SoundStateNotifier dataState = ref.watch(soundStateProvider);
+      final Directory directory = await getApplicationDocumentsDirectory();
+      const String assetName = "Can-Lam-Tra-My-Idol-Hoang-Rapper.mp3";
+      final File file = File("${directory.path}/$assetName");
+      final ByteData byteData =
+          await rootBundle.load('assets/${AudioCommon.canLam}');
+      await file.writeAsBytes(byteData.buffer.asUint8List());
+      path = file.path;
 
-      await player.setSource(AssetSource(AudioCommon.canLam));
+      await controller.preparePlayer(
+        path: path,
+        shouldExtractWaveform: false,
+      );
 
-      player.onDurationChanged.listen((Duration d) {
-        //get the duration of audio
-        maxDuration = d.inMilliseconds;
-        setState(() {});
-      });
+      controller.onCurrentDurationChanged.listen((currentpos) async {
+        maxDuration = await controller.getDuration(DurationType.max);
 
-      player.onPositionChanged.listen((Duration p) {
-        currentpos =
-            p.inMilliseconds; //get the current position of playing audio
-
-        //generating the duration label
-        int shours = Duration(milliseconds: currentpos).inHours;
-        int sminutes = Duration(milliseconds: currentpos).inMinutes;
-        int sseconds = Duration(milliseconds: currentpos).inSeconds;
-
-        int rhours = shours;
-        int rminutes = sminutes - (shours * 60);
-        int rseconds = sseconds - (sminutes * 60 + shours * 60 * 60);
-
-        currentpostlabel = "$rhours:$rminutes:$rseconds";
+        currentpostlabel = convertNumberToDurationLabel(currentpos);
 
         dataState.calculatePercentPlaySound((currentpos / maxDuration) * 100);
 
-        setState(() {
-          //refresh the UI
-        });
+        setState(() {});
       });
 
-      await controller.preparePlayer(
-        path: AudioCommon.canLam,
-        shouldExtractWaveform: true,
-        noOfSamples: 100,
-        volume: 1.0,
-      );
-
+      controller.onCompletion.listen((event) async {
+        await controller.pausePlayer();
+      });
       //================
     });
     super.initState();
@@ -74,8 +78,8 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
 
   @override
   void dispose() async {
+    controller.dispose();
     super.dispose();
-    await player.dispose();
   }
 
   @override
@@ -83,52 +87,43 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          child: AudioFileWaveforms(
-            size: Size(MediaQuery.of(context).size.width, 100.0),
-            playerController: controller,
-            enableSeekGesture: true,
-            waveformType: WaveformType.long,
-            waveformData: [],
-            playerWaveStyle: const PlayerWaveStyle(
+        TextPaddingBlack(
+            title:
+                "${currentpostlabel}/${convertNumberToDurationLabel(maxDuration)}",
+            style: const TextStyle(fontSize: 14)
+                .merge(TextStyleConstant.textWhite)),
+        AudioFileWaveforms(
+          size: Size(MediaQuery.of(context).size.width, 100.0),
+          playerController: controller,
+          enableSeekGesture: true,
+          waveformType: WaveformType.long,
+          waveformData: listWaveTest,
+          playerWaveStyle: const PlayerWaveStyle(
               fixedWaveColor: Colors.white54,
-              liveWaveColor: Colors.blueAccent,
+              liveWaveColor: ColorsCommon.colorOrange,
               spacing: 6,
-            ),
-          ),
+              seekLineColor: ColorsCommon.colorOrange,
+              scrollScale: 0.5,
+              scaleFactor: 200),
         ),
-        Container(
-          child: Text(
-            currentpostlabel,
-            style: TextStyle(fontSize: 25),
-          ),
-        ),
-        Container(
-            child: Slider(
-          value: double.parse(currentpos.toString()),
-          min: 0,
-          max: double.parse(maxDuration.toString()),
-          divisions: maxDuration,
-          label: currentpostlabel,
-          onChanged: (double value) async {
-            int seekval = value.round();
-            await player.seek(Duration(milliseconds: seekval));
-            await controller.seekTo(seekval);
-          },
-        )),
-        Container(
-          child: Wrap(
-            spacing: 10,
-            children: [
-              ElevatedButton.icon(
-                  onPressed: () async {
-                    await player.play(AssetSource(AudioCommon.canLam));
-                    await controller.startPlayer(finishMode: FinishMode.stop);
-                  },
-                  icon: const Icon(Icons.play_arrow),
-                  label: const Text("Play")),
-            ],
-          ),
+        const SizedBox(height: 30),
+        Wrap(
+          spacing: 10,
+          children: [
+            ElevatedButton.icon(
+                onPressed: () async {
+                  await controller.startPlayer(
+                      finishMode: FinishMode.loop, forceRefresh: false);
+                },
+                icon: const Icon(Icons.play_arrow),
+                label: const Text("Play")),
+            ElevatedButton.icon(
+                onPressed: () async {
+                  await controller.pausePlayer();
+                },
+                icon: const Icon(Icons.pause),
+                label: const Text("pause"))
+          ],
         )
       ],
     );
