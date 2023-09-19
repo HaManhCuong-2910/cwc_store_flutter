@@ -44,7 +44,7 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
               ),
               child: Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+                      const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

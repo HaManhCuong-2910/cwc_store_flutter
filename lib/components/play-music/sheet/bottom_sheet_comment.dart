@@ -1,6 +1,6 @@
 import 'package:cwc_store/components/play-music/sheet/body_sheet.dart';
 import 'package:cwc_store/components/play-music/sheet/header_sheet.dart';
-import 'package:cwc_store/theme/app_theme.dart';
+import 'package:cwc_store/components/play-music/sheet/input_comment.dart';
 import 'package:flutter/material.dart';
 
 class BottomSheetComment extends StatefulWidget {
@@ -26,21 +26,8 @@ class _BottomSheetCommentState extends State<BottomSheetComment> {
           children: [
             HeaderSheet(title: widget.title, author: widget.author),
             BodySheetComment(),
+            const InputComment(),
           ],
-        ),
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: const BoxDecoration(
-              border:
-                  Border(top: BorderSide(color: ColorsCommon.colorWhite200))),
-          child: const Row(
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage(ImagesCommon.anhTest),
-                radius: 18,
-              )
-            ],
-          ),
         ),
       )),
     );

@@ -47,14 +47,14 @@ class _ActionLikeComponentState extends ConsumerState<ActionLikeComponent> {
         children: [
           Icon(
             _isExistInLibrary ? IconCustom.heart : IconCustom.heart_empty,
-            size: 15,
+            size: 18,
             color: _isExistInLibrary ? Colors.redAccent : Colors.white,
           ),
           const SizedBox(width: 6),
           TextCommon(
             (_isExistInLibrary ? widget.numLike + 1 : widget.numLike)
                 .toString(),
-            style: TextStyleConstant.textWhite.merge(TextStyleConstant.small),
+            style: TextStyleConstant.textWhite,
           )
         ],
       ),
