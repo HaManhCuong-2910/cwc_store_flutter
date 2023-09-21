@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cwc_store/components/play-music/body_play_component.dart';
 import 'package:cwc_store/components/play-music/bottom/action_comment_component.dart';
 import 'package:cwc_store/components/play-music/bottom/action_like_component.dart';
@@ -29,14 +31,18 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
         child: Scaffold(
             backgroundColor: Colors.black,
             body: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                      image: const AssetImage(ImagesCommon.anhTest),
-                      fit: BoxFit.cover,
-                      alignment: Alignment(positionImage, 0))),
-              child: BodyPlayMusic(data: _data),
-            ),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    image: DecorationImage(
+                        image: const AssetImage(ImagesCommon.anhTest),
+                        fit: BoxFit.cover,
+                        alignment: Alignment(positionImage, 0))),
+                child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                    child: Container(
+                        decoration:
+                            BoxDecoration(color: Colors.white.withOpacity(0.0)),
+                        child: BodyPlayMusic(data: _data)))),
             bottomNavigationBar: Theme(
               data: ThemeData(
                 highlightColor: Colors.transparent,

@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SoundState {
-  SoundState({required this.percentConvert});
+  SoundState({this.percentConvert = 0, this.isPlay = false});
 
   double percentConvert;
+  bool isPlay;
 }
 
 convertNumber(double num) {
@@ -13,7 +14,7 @@ convertNumber(double num) {
 }
 
 class SoundStateNotifier extends ChangeNotifier {
-  final SoundState data = SoundState(percentConvert: 0);
+  final SoundState data = SoundState();
 
   calculatePercentPlaySound(double currentPercent) {
     switch (currentPercent) {
@@ -29,6 +30,11 @@ class SoundStateNotifier extends ChangeNotifier {
         data.percentConvert = -1.0;
         break;
     }
+    notifyListeners();
+  }
+
+  togglePlay(bool value) {
+    data.isPlay = value;
     notifyListeners();
   }
 }

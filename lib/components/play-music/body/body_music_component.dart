@@ -84,34 +84,38 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
 
   @override
   Widget build(BuildContext context) {
+    final SoundStateNotifier dataState = ref.watch(soundStateProvider);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        TextPaddingBlack(
-            title:
-                "${currentpostlabel}/${convertNumberToDurationLabel(maxDuration)}",
-            style: const TextStyle(fontSize: 14)
-                .merge(TextStyleConstant.textWhite)),
         AudioFileWaveforms(
           size: Size(MediaQuery.of(context).size.width, 100.0),
           playerController: controller,
           enableSeekGesture: true,
           waveformType: WaveformType.long,
           waveformData: listWaveTest,
-          playerWaveStyle: const PlayerWaveStyle(
+          playerWaveStyle: PlayerWaveStyle(
               fixedWaveColor: Colors.white54,
               liveWaveColor: ColorsCommon.colorOrange,
               spacing: 6,
               seekLineColor: ColorsCommon.colorOrange,
+              showSeekLine: true,
               scrollScale: 0.5,
-              scaleFactor: 200),
+              scaleFactor: dataState.data.isPlay ? 200 : 0),
         ),
-        const SizedBox(height: 30),
+        const SizedBox(height: 20),
+        TextPaddingBlack(
+            title:
+                "${currentpostlabel}/${convertNumberToDurationLabel(maxDuration)}",
+            style: const TextStyle(fontSize: 14)
+                .merge(TextStyleConstant.textWhite)),
         Wrap(
           spacing: 10,
           children: [
             ElevatedButton.icon(
                 onPressed: () async {
+                  dataState.togglePlay(true);
                   await controller.startPlayer(
                       finishMode: FinishMode.loop, forceRefresh: false);
                 },
@@ -119,6 +123,7 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
                 label: const Text("Play")),
             ElevatedButton.icon(
                 onPressed: () async {
+                  dataState.togglePlay(false);
                   await controller.pausePlayer();
                 },
                 icon: const Icon(Icons.pause),
