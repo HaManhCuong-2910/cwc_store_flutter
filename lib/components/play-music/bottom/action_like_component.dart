@@ -8,10 +8,10 @@ import 'package:collection/collection.dart';
 
 class ActionLikeComponent extends ConsumerStatefulWidget {
   const ActionLikeComponent(
-      {super.key, required this.numLike, required this.currentId});
+      {super.key, required this.numLike, required this.id});
 
   final int numLike;
-  final String currentId;
+  final String id;
 
   @override
   ConsumerState<ActionLikeComponent> createState() =>
@@ -24,8 +24,7 @@ class _ActionLikeComponentState extends ConsumerState<ActionLikeComponent> {
   void onSetHeart(List<PlayMusicState> data) {
     setState(() {
       _isExistInLibrary =
-          data.firstWhereOrNull((element) => element.id == widget.currentId) !=
-              null;
+          data.firstWhereOrNull((element) => element.id == widget.id) != null;
     });
   }
 
@@ -34,7 +33,7 @@ class _ActionLikeComponentState extends ConsumerState<ActionLikeComponent> {
     final PlayMusicStateNotifier dataState = ref.watch(playMusicStateProvider);
 
     void onAddLibrary() {
-      dataState.onToggleAddRemove(widget.currentId);
+      dataState.onToggleAddRemove(widget.id);
     }
 
     ref.listen(playMusicStateProvider, (previous, next) {

@@ -40,7 +40,12 @@ class _HomePage extends State<HomePage> {
                   icon: Icon(
                     Icons.feed,
                   ),
-                  label: 'Feed')
+                  label: 'Feed'),
+              BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.tab_rounded,
+                  ),
+                  label: 'Test AI')
             ],
             iconSize: 28,
             selectedFontSize: 12,

@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:cwc_store/components/play-music/body_play_component.dart';
 import 'package:cwc_store/components/play-music/bottom/action_comment_component.dart';
 import 'package:cwc_store/components/play-music/bottom/action_like_component.dart';
 import 'package:cwc_store/models/play-music/state_song.dart';
 import 'package:cwc_store/provider/play-music/sound_data_provider.dart';
+import 'package:cwc_store/service/helper/index.dart';
 import 'package:cwc_store/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,12 +36,7 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
                         image: const AssetImage(ImagesCommon.anhTest),
                         fit: BoxFit.cover,
                         alignment: Alignment(positionImage, 0))),
-                child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                    child: Container(
-                        decoration:
-                            BoxDecoration(color: Colors.white.withOpacity(0.0)),
-                        child: BodyPlayMusic(data: _data)))),
+                child: boxFilterCustom(BodyPlayMusic(data: _data))),
             bottomNavigationBar: Theme(
               data: ThemeData(
                 highlightColor: Colors.transparent,
@@ -54,8 +48,7 @@ class _PlayMusicPageState extends ConsumerState<PlayMusicPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ActionLikeComponent(
-                          numLike: _data.numLike, currentId: _data.currentId),
+                      ActionLikeComponent(numLike: _data.numLike, id: _data.id),
                       ActionCommentComponent(
                           numComment: _data.numComment,
                           nameSong: _data.nameSong,

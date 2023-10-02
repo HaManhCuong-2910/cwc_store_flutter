@@ -95,14 +95,14 @@ class _BodyMusicComponentState extends ConsumerState<BodyMusicComponent> {
           enableSeekGesture: true,
           waveformType: WaveformType.long,
           waveformData: listWaveTest,
-          playerWaveStyle: PlayerWaveStyle(
+          playerWaveStyle: const PlayerWaveStyle(
               fixedWaveColor: Colors.white54,
               liveWaveColor: ColorsCommon.colorOrange,
               spacing: 6,
               seekLineColor: ColorsCommon.colorOrange,
               showSeekLine: true,
               scrollScale: 0.5,
-              scaleFactor: dataState.data.isPlay ? 200 : 0),
+              scaleFactor: 200),
         ),
         const SizedBox(height: 20),
         TextPaddingBlack(
